@@ -1,0 +1,61 @@
+#!/bin/bash
+color="\e[0;36m"
+
+
+echo -e "${color}upgrade the machine \e[0m"
+sudo apt update -y
+echo " "
+
+echo -e "${color}update the machine \e[0m"
+echo " "
+sudo apt upgrade -y
+echo " "
+
+echo -e "${color}downloading cron \e[0m"
+echo " "
+sudo apt install cron -y
+echo " "
+
+echo ""
+echo -e "${color}enable systemctl cron \e[0m"
+echo " "
+sleep 1
+sudo systemctl enable cron
+echo "done"
+
+echo "" 
+echo -e "${color}creating cron.b/schedule \e[0m"
+echo ""
+sleep 1
+sudo touch /etc/cron.d/schedule
+echo "done"
+
+echo "" 
+echo -e "${color}changing premission for editing 'schedule' \e[0m"
+echo ""
+sleep 1
+sudo chmod 777 /etc/cron.d/schedule
+echo "done"
+
+echo ""
+echo -e "${color}creating log file for cronjob '/etc/log.txt' \e[0m"
+echo ""
+sleep 1
+sudo touch /etc/log.txt
+echo "done"
+
+echo "" 
+echo -e "${color}adding schedule update & upgrade & auto remove \e[0m"
+echo ""
+sleep 1
+echo "0 22 * * * root sudo apt update -q >> /etc/log.txt" >> /etc/cron.d/schedule
+echo "0 23 * * * root sudo apt upgrade -q -y >> /etc/log.txt" >> /etc/cron.d/schedule
+echo "30 22 * * * root sudo apt autoremove -q -y >> /etc/log.txt" >> /etc/cron.d/schedule
+echo "done"
+
+echo "" 
+echo -e "${color}changing premission to run by root only \e[0m"
+echo ""
+sleep 1
+sudo chmod 600 /etc/cron.d/schedule
+echo "done"
