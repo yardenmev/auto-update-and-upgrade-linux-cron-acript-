@@ -31,7 +31,7 @@ sudo touch /etc/cron.d/schedule
 echo "done"
 
 echo "" 
-echo -e "${color}changing premission for editing 'schedule' \e[0m"
+echo -e "${color}changing permission for editing 'schedule' \e[0m"
 echo ""
 sleep 1
 sudo chmod 777 /etc/cron.d/schedule
@@ -54,7 +54,7 @@ echo "30 22 * * * root sudo apt autoremove -q -y >> /etc/log.txt" >> /etc/cron.d
 echo "done"
 
 echo "" 
-echo -e "${color}changing premission to run by root only \e[0m"
+echo -e "${color}changing permission to run by root only \e[0m"
 echo ""
 sleep 1
 sudo chmod 600 /etc/cron.d/schedule
